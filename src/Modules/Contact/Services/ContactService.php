@@ -13,16 +13,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ContactService
 {
-    private ContactRepository $repository;
-    private ContactFactory $factory;
-
     public function __construct(
-        ContactRepository $repository,
-        ContactFactory $factory
-    )
-    {
-        $this->repository = $repository;
-        $this->factory = $factory;
+        private ContactRepository $repository,
+        private ContactFactory $factory
+    ) {
     }
 
     public function create(User $user, CreateContactDto $dto): Contact
@@ -31,6 +25,7 @@ class ContactService
         $contact->fill($dto->toArray());
         $contact->user_id = $user->id;
         $this->repository->save($contact);
+
         return $contact;
     }
 
@@ -51,8 +46,9 @@ class ContactService
 
     public function update(Contact $contact, UpdateContactDto $dto): Contact
     {
-        $contact->fill(array_diff($dto->toArray(), array('', NULL, false)));
+        $contact->fill(array_diff($dto->toArray(), ['', null, false]));
         $this->repository->save($contact);
+
         return $contact;
     }
 

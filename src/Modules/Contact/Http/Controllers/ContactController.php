@@ -2,7 +2,6 @@
 
 namespace Modules\Contact\Http\Controllers;
 
-
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -17,13 +16,9 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ContactController extends Controller
 {
-    private ContactService $contactService;
-
     public function __construct(
-        ContactService $contactService
-    )
-    {
-        $this->contactService = $contactService;
+        private ContactService $contactService
+    ) {
     }
 
     /**
@@ -32,6 +27,7 @@ class ContactController extends Controller
     public function create(CreateContactRequest $request): ContactResource
     {
         $dto = new CreateContactDto($request->all());
+
         return ContactResource::make($this->contactService->create($request->user(), $dto));
     }
 
@@ -50,9 +46,10 @@ class ContactController extends Controller
      */
     public function update(UpdateContactRequest $request, int $id): ContactResource
     {
-        $dto = new UpdateContactDto($request->all());
+        $dto     = new UpdateContactDto($request->all());
         $contact = $this->contactService->tryGetByUserAndId($request->user()->id, $id);
         $this->contactService->update($contact, $dto);
+
         return ContactResource::make($contact);
     }
 
@@ -60,6 +57,7 @@ class ContactController extends Controller
     {
         $contact = $this->contactService->tryGetByUserAndId($request->user()->id, $id);
         $this->contactService->delete($contact);
+
         return response()->json(['message' => __('Successful')]);
     }
 }

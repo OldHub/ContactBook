@@ -3,11 +3,13 @@ Service where you can store your contacts
 
 ## Usage
 
-`docker-compose up -d`
+<b>To start the project use:</b>
 
-<b>For first start run</b>
+`make docker-up`
 
-`bash start.sh`
+<b>For first setup use:<b>
+
+`make setup`
 
 <b>Stoplight</b>
 

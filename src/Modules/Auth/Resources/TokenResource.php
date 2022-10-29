@@ -3,6 +3,7 @@
 namespace Modules\Auth\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Laravel\Sanctum\NewAccessToken;
 
 class TokenResource extends JsonResource
 {
@@ -11,8 +12,11 @@ class TokenResource extends JsonResource
      */
     public function toArray($request): array
     {
+        /** @var NewAccessToken $token */
+        $token = $this;
+
         return [
-            'token' => $this->plainTextToken,
+            'token' => $token->plainTextToken,
         ];
     }
 }

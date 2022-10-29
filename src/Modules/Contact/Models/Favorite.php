@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Favorite
- * @package Modules\Favorite\Models
  *
  * @property int $id
  * @property int $contact_id
- *
  * @property Contact $contact
  */
 class Favorite extends Model

@@ -17,16 +17,11 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class AuthController extends Controller
 {
-    private AuthService $authService;
-    private UserService $userService;
-
     public function __construct(
-        AuthService $authService,
-        UserService $userService
+        private AuthService $authService,
+        private UserService $userService
     )
     {
-        $this->authService = $authService;
-        $this->userService = $userService;
     }
 
     /**

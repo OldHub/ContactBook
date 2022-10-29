@@ -3,6 +3,7 @@
 namespace Modules\Contact\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Contact\Models\Contact;
 
 class ContactResource extends JsonResource
 {
@@ -11,11 +12,14 @@ class ContactResource extends JsonResource
      */
     public function toArray($request): array
     {
+        /** @var Contact $contact */
+        $contact = $this;
+
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'phone' => $this->phone,
-            'isFavorite' => (bool) $this->favorite
+            'id'         => $contact->id,
+            'name'       => $contact->name,
+            'phone'      => $contact->phone,
+            'isFavorite' => (bool) $contact->favorite,
         ];
     }
 }

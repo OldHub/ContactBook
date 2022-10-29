@@ -21,7 +21,7 @@ class ForgotEmail extends Mailable
     {
         return $this->view('mail')
             ->with([
-                'url' => route('auth.password.reset') . '?token=' . $this->token
+                'url' => route('auth.password.reset') . '?token=' . $this->token,
             ]);
     }
 }

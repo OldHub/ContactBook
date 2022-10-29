@@ -8,13 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class Contacts
- * @package Modules\Contact\Models
  *
  * @property int $id
  * @property int $user_id
  * @property string $name
  * @property string $phone
- *
  * @property Favorite $favorite
  */
 class Contact extends Model
@@ -26,7 +24,7 @@ class Contact extends Model
     protected $fillable = [
         'name',
         'phone',
-        'user_id'
+        'user_id',
     ];
 
     public function favorite(): HasOne

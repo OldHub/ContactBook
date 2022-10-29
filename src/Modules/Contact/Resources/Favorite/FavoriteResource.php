@@ -3,6 +3,7 @@
 namespace Modules\Contact\Resources\Favorite;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Contact\Models\Favorite;
 
 class FavoriteResource extends JsonResource
 {
@@ -11,9 +12,12 @@ class FavoriteResource extends JsonResource
      */
     public function toArray($request): array
     {
+        /** @var Favorite $favorite */
+        $favorite = $this;
+
         return [
-            'id' => $this->id,
-            'contactId' => $this->contact_id
+            'id'        => $favorite->id,
+            'contactId' => $favorite->contact_id,
         ];
     }
 }

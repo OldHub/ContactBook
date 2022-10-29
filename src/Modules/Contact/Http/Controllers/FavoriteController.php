@@ -11,22 +11,17 @@ use Modules\Contact\Services\Favorite\FavoriteService;
 
 class FavoriteController extends Controller
 {
-    private FavoriteService $favoriteService;
-    private ContactService $contactService;
-
     public function __construct(
-        FavoriteService $favoriteService,
-        ContactService $contactService
-    )
-    {
-        $this->favoriteService = $favoriteService;
-        $this->contactService = $contactService;
+        private FavoriteService $favoriteService,
+        private ContactService $contactService
+    ) {
     }
 
     public function add(Request $request, int $id): ContactResource
     {
         $contact = $this->contactService->tryGetByUserAndId($request->user()->id, $id);
         $this->favoriteService->add($contact);
+
         return ContactResource::make($contact);
     }
 
@@ -36,6 +31,7 @@ class FavoriteController extends Controller
         if ($contact->favorite) {
             $this->favoriteService->delete($contact);
         }
+
         return response()->json(['message' => __('Successful')]);
     }
 }

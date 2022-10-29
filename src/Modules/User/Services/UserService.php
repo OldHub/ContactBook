@@ -14,16 +14,10 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class UserService
 {
-    private UserFactory $factory;
-    private UserRepository $repository;
-
     public function __construct(
-        UserFactory $factory,
-        UserRepository $repository
-    )
-    {
-        $this->factory = $factory;
-        $this->repository = $repository;
+        private UserFactory $factory,
+        private UserRepository $repository
+    ) {
     }
 
     public function create(RegisterDto $dto): User
@@ -32,6 +26,7 @@ class UserService
         $user->fill($dto->toArray());
         $user->password = Hash::make($dto->password);
         $this->repository->save($user);
+
         return $user;
     }
 
@@ -41,6 +36,7 @@ class UserService
         if (!$user) {
             throw new UnauthorizedHttpException('', __('Invalid email or password'));
         }
+
         return $user;
     }
 
@@ -50,14 +46,16 @@ class UserService
         if (!$user) {
             throw new NotFoundHttpException(__('Not found'));
         }
+
         return $user;
     }
 
     public function resetPassword(User $user, string $password): User
     {
-        $user->password = Hash::make($password);
+        $user->password       = Hash::make($password);
         $user->remember_token = Str::random(UserConstants::REMEMBER_TOKEN_LENGTH);
         $this->repository->save($user);
+
         return $user;
     }
 }

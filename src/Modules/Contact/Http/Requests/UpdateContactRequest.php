@@ -15,9 +15,14 @@ class UpdateContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['nullable', 'string', 'max:255', 'required_without:phone'],
-            'phone' => ['nullable', 'string', Rule::unique('contacts')->ignore($this->phone, 'phone'),
-                new PhoneRule(), 'required_without:name'],
+            'name'  => ['nullable', 'string', 'max:255', 'required_without:phone'],
+            'phone' => [
+                'nullable',
+                'string',
+                Rule::unique('contacts')->ignore($this->phone, 'phone'),
+                new PhoneRule(),
+                'required_without:name',
+            ],
         ];
     }
 }
